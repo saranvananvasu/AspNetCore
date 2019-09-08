@@ -43,11 +43,14 @@
 
     <ItemGroup>
       <ItemsToPushToBlobFeed Include="@(_InstallersToPublish)">
-        <IsShipping>false</IsShipping>
-        <ManifestArtifactData>ShipInstaller=dotnetcli</ManifestArtifactData>
+        <ManifestArtifactData>NonShipping=true;ShipInstaller=dotnetcli</ManifestArtifactData>
         <PublishFlatContainer>true</PublishFlatContainer>
         <RelativeBlobPath>$(_UploadPathRoot)/%(_InstallersToPublish.UploadPathSegment)/$(_PackageVersion)/%(Filename)%(Extension)</RelativeBlobPath>
       </ItemsToPushToBlobFeed>
     </ItemGroup>
+
+    <Message
+      Text="@(ItemsToPushToBlobFeed -> '%(Identity) &apos;%(ItemsToPushToBlobFeed.PublishFlatContainer)&apos; &apos;%(ItemsToPushToBlobFeed.RelativeBlobPath)&apos;', '%0A')"
+      Importance="high" />
   </Target>
 </Project>
